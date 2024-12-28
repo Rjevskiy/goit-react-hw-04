@@ -1,35 +1,52 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
+import { Toaster } from 'react-hot-toast'; // імпортуємо Toaster
+import SearchBar from './components/SearchBar/SearchBar';
+import ImageGallery from './components/ImageGallery/ImageGallery';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [images, setImages] = useState([]);
+
+  // Функція для пошуку зображень
+  const fetchImages = async (query) => {
+    const API_URL = 'https://api.unsplash.com/search/photos';
+    const ACCESS_KEY = 'dGN3A5mgFyKt9FJLf0LIU7_o2MiwUlKgy0Ap87aNpzY'; // Замініть на ваш ключ
+
+    try {
+      const response = await fetch(`${API_URL}?query=${query}&page=1&per_page=12&client_id=${ACCESS_KEY}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      setImages(data.results);
+    } catch (error) {
+      console.error('Помилка:', error.message);
+    }
+  };
+
+  // Обробник події для пошуку
+  const handleSearch = (query) => {
+    fetchImages(query);
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div id="app">
+      <header>
+        <h1>Пошук зображень</h1>
+        <SearchBar onSubmit={handleSearch} />
+      </header>
+      <main>
+        <ImageGallery images={images} />
+      </main>
+
+      {/* Компонент для відображення тостів */}
+      <Toaster />
+    </div>
+  );
 }
 
-export default App
+export default App;
+
+
+
+
+
