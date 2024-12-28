@@ -71,8 +71,8 @@ button:focus-visible {
   flex-wrap: wrap;
     gap: 10px;}
 
-.gallery-item {
-  width: 450px;
+li {
+  width: 430px;
   /* Задай бажану ширину */
   height: 300px;
   /* Задай бажану висоту */
@@ -80,7 +80,7 @@ button:focus-visible {
   /* Сховає частину зображення, якщо воно виходить за межі */
 }
 
-.gallery-item img {
+ img {
   width: 100%;
   height: 100%;
   object-fit: cover;

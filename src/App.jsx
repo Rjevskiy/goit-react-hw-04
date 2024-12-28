@@ -6,7 +6,7 @@ import ImageGallery from './components/ImageGallery/ImageGallery';
 function App() {
   const [images, setImages] = useState([]);
 
-  // Функція для пошуку зображень
+  // пошук зображень
   const fetchImages = async (query) => {
     const API_URL = 'https://api.unsplash.com/search/photos';
     const ACCESS_KEY = 'dGN3A5mgFyKt9FJLf0LIU7_o2MiwUlKgy0Ap87aNpzY'; // Замініть на ваш ключ
@@ -24,7 +24,7 @@ function App() {
     }
   };
 
-  // Обробник події для пошуку
+  // обробник події 
   const handleSearch = (query) => {
     fetchImages(query);
   };
@@ -39,7 +39,7 @@ function App() {
         <ImageGallery images={images} />
       </main>
 
-      {/* Компонент для відображення тостів */}
+      {/*  тост */}
       <Toaster />
     </div>
   );
