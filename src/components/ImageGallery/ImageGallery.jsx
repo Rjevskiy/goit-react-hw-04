@@ -2,19 +2,17 @@ import React from 'react';
 
 const ImageGallery = ({ images }) => {
   return (
-    <div className="image-gallery">
-      {images.length === 0 ? (
-        <p>Немає зображень для відображення</p>
-      ) : (
-        <div className="gallery">
-          {images.map((image) => (
-            <div key={image.id} className="gallery-item">
+    images.length > 0 && ( // Перевірка наявності зображень
+      <ul className="gallery">
+        {images.map((image) => (
+          <li key={image.id}>
+            <div>
               <img src={image.urls.small} alt={image.alt_description} />
             </div>
-          ))}
-        </div>
-      )}
-    </div>
+          </li>
+        ))}
+      </ul>
+    )
   );
 };
 

@@ -14,8 +14,9 @@ function App() {
     try {
       const response = await fetch(`${API_URL}?query=${query}&page=1&per_page=12&client_id=${ACCESS_KEY}`);
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+        throw new Error(`Сталася помилка: ${response.status} - ${response.statusText}`);}
+      
+      
       const data = await response.json();
       setImages(data.results);
     } catch (error) {
