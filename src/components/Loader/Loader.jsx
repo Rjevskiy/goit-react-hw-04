@@ -1,6 +1,5 @@
-// В файле Loader.jsx
 import React from 'react';
-import { Circles } from 'react-loader-spinner'; // Ваш компонент
+import { Circles } from 'react-loader-spinner'; 
 
 function Loader() {
   return (
@@ -18,4 +17,5 @@ function Loader() {
   );
 }
 
-export default Loader; // Экспортируем компонент
+export default Loader;
+
