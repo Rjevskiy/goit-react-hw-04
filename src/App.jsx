@@ -14,7 +14,7 @@ function App() {
 
   // Функция для поиска изображений
   const fetchImages = async (query) => {
-    const API_URL = 'https://api.unsplash.com/search/photos';
+    const API_URL = 'https://api.unsplash.com/search/photos1';
     const ACCESS_KEY = 'dGN3A5mgFyKt9FJLf0LIU7_o2MiwUlKgy0Ap87aNpzY'; 
 
     setIsLoading(true); // включаем индикатор
