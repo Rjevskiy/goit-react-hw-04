@@ -1,19 +1,29 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import ImageCard from '../ImageCard/ImageCard'; // Импортируем ImageCard
 
-const ImageGallery = ({ images }) => {
+function ImageGallery({ images }) {
   return (
-    images.length > 0 && ( // перевірка на зображеня
-      <ul className="gallery">
-        {images.map((image) => (
-          <li key={image.id}>
-            <div>
-              <img src={image.urls.small} alt={image.alt_description} />
-            </div>
-          </li>
-        ))}
-      </ul>
-    )
+    <ul className="gallery">
+      {images.map((image) => (
+        <li key={image.id}>
+          <ImageCard src={image.urls.small} alt={image.alt_description || 'Image'} />
+        </li>
+      ))}
+    </ul>
   );
+}
+
+ImageGallery.propTypes = {
+  images: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired, // ID изображения
+      urls: PropTypes.shape({
+        small: PropTypes.string.isRequired, // Ссылка на изображение
+      }).isRequired,
+      alt_description: PropTypes.string, // Описание изображения
+    })
+  ).isRequired,
 };
 
 export default ImageGallery;

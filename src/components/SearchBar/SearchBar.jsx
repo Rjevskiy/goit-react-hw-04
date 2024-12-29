@@ -31,7 +31,7 @@ const SearchBar = ({ onSubmit }) => {
           autoFocus
           value={query}
           onChange={handleChange}
-          placeholder="Search images and photos"
+          placeholder="Введіть текст для пошуку зображень"
         />
         <button type="submit">Search</button>
       </form>

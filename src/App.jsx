@@ -1,51 +1,80 @@
 import React, { useState } from 'react';
-import { Toaster } from 'react-hot-toast'; // імпортуємо Toaster
+import { Toaster, toast } from 'react-hot-toast';
 import SearchBar from './components/SearchBar/SearchBar';
 import ImageGallery from './components/ImageGallery/ImageGallery';
+import Loader from './components/Loader/Loader'; 
+import './App.css';
+
+import ErrorMessage from './components/ErrorMessage'; 
 
 function App() {
   const [images, setImages] = useState([]);
+  const [isLoading, setIsLoading] = useState(false); // состояние загрузки
+  const [errorMessage, setErrorMessage] = useState(null); // состояние ошибки
 
-  // пошук зображень
+  // Функция для поиска изображений
   const fetchImages = async (query) => {
     const API_URL = 'https://api.unsplash.com/search/photos';
-    const ACCESS_KEY = 'dGN3A5mgFyKt9FJLf0LIU7_o2MiwUlKgy0Ap87aNpzY'; // Замініть на ваш ключ
+    const ACCESS_KEY = 'dGN3A5mgFyKt9FJLf0LIU7_o2MiwUlKgy0Ap87aNpzY'; 
+
+    setIsLoading(true); // включаем индикатор
+    setErrorMessage(null); // выключаем ошибку
+    console.log('Загрузка началась...');
 
     try {
-      const response = await fetch(`${API_URL}?query=${query}&page=1&per_page=12&client_id=${ACCESS_KEY}`);
+      const response = await fetch(
+        `${API_URL}?query=${query}&page=1&per_page=12&client_id=${ACCESS_KEY}`
+      );
+
       if (!response.ok) {
-        throw new Error(`Сталася помилка: ${response.status} - ${response.statusText}`);}
-      
-      
+        throw new Error(`Ошибка: ${response.status} - ${response.statusText}`);
+      }
+
       const data = await response.json();
-      setImages(data.results);
+      setImages((prevImages) => [...prevImages, ...data.results]); // новые изображения
+      toast.success(`Найдено ${data.results.length} изображений!`);
     } catch (error) {
-      console.error('Помилка:', error.message);
+      toast.error(`Ошибка: ${error.message}`);
+      setErrorMessage(error.message); // включаем ошибку
+    } finally {
+      setIsLoading(false); // выключаем индикатор
     }
   };
 
-  // обробник події 
+  // обработчик события поиска
   const handleSearch = (query) => {
+    if (!query.trim()) {
+      toast.error('Введите запрос для поиска!');
+      return;
+    }
+    setImages([]); // очищаем изображения
     fetchImages(query);
   };
 
   return (
     <div id="app">
-      <header>
-        <h1>Пошук зображень</h1>
+      <header className="header">
         <SearchBar onSubmit={handleSearch} />
       </header>
-      <main>
-        <ImageGallery images={images} />
+
+      <main className="main">
+        {errorMessage ? (
+          <ErrorMessage message={errorMessage} /> 
+        ) : (
+          <>
+            <ImageGallery images={images} />
+            {isLoading && <Loader />} 
+          </>
+        )}
       </main>
 
-      {/*  тост */}
-      <Toaster />
+      <Toaster position="top-right" />
     </div>
   );
 }
 
 export default App;
+
 
 
 
