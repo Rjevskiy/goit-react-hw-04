@@ -4,15 +4,12 @@ import { toast } from 'react-hot-toast';
 const SearchBar = ({ onSubmit }) => {
   const [query, setQuery] = useState('');
 
-  // обробка  форми
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (query.trim() === '') {
-      // якщо поле  порожнє
       toast.error('Будь ласка, введіть текст для пошуку зображень!');
     } else {
-      // якщо є запит
       onSubmit(query);
       setQuery('');
     }

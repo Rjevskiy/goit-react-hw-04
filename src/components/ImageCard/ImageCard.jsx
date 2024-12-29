@@ -1,17 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types'; // Для валидации пропсов
+import PropTypes from 'prop-types'; 
 
-function ImageCard({ src, alt }) {
+function ImageCard({ src }) {
   return (
     <div className="image-card">
-      <img src={src} alt={alt} />
+      <img src={src}  />
     </div>
   );
 }
 
 ImageCard.propTypes = {
-  src: PropTypes.string.isRequired, // URL изображения (обязательный)
-  alt: PropTypes.string.isRequired, // Альтернативный текст (обязательный)
-};
+  src: PropTypes.string.isRequired, };
 
 export default ImageCard;

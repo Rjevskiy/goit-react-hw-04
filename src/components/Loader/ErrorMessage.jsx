@@ -1,6 +1,6 @@
 import React from 'react';
 
-function ErrorMessage({ message }) {
+function ErrorMessage() {
   return (
     <div style={{ color: 'red', fontSize: '38px', fontWeight: 'bold' }}>
           {`Схоже сталася якась помилка.`}
