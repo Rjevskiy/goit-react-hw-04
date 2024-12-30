@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ImageCard from '../ImageCard/ImageCard'; // Импортируем ImageCard
+import ImageCard from '../ImageCard/ImageCard'; 
 
 function ImageGallery({ images, onImageClick }) {
   return (
@@ -17,15 +17,15 @@ function ImageGallery({ images, onImageClick }) {
 ImageGallery.propTypes = {
   images: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string.isRequired, // ID изображения
+      id: PropTypes.string.isRequired, 
       urls: PropTypes.shape({
-        small: PropTypes.string.isRequired, // Ссылка на миниатюру
-        full: PropTypes.string.isRequired,  // Ссылка на полное изображение
+        small: PropTypes.string.isRequired, // миниатюра
+        full: PropTypes.string.isRequired,  // полное изображение
       }).isRequired,
-      alt_description: PropTypes.string, // Описание изображения
+      alt_description: PropTypes.string,  
     })
   ).isRequired,
-  onImageClick: PropTypes.func.isRequired, // Обработчик клика
+  onImageClick: PropTypes.func.isRequired, // обработчик клика
 };
 
 export default ImageGallery;

@@ -3,7 +3,7 @@ import Modal from 'react-modal';
 
 import './ImageModal.css';
 
-// Устанавливаем корневой элемент для модального окна
+
 Modal.setAppElement('#app');
 
 function ImageModal({ isOpen, image, onClose }) {

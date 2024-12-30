@@ -5,7 +5,7 @@ import ImageGallery from './components/ImageGallery/ImageGallery';
 import Loader from './components/Loader/Loader';
 import ImageModal from './components/ImageModal/ImageModal';
 import ErrorMessage from './components/Loader/ErrorMessage';
-import LoadMoreBtn from './components/Loader/LoadMoreBtn'; // Импортируем компонент кнопки Load More
+import LoadMoreBtn from './components/Loader/LoadMoreBtn'; 
 
 import './App.css';
 
@@ -15,6 +15,7 @@ function App() {
   const [errorMessage, setErrorMessage] = useState(null); // Состояние ошибки
   const [modalImage, setModalImage] = useState(null); // Состояние для модального окна
   const [page, setPage] = useState(1); // Состояние для текущей страницы
+  const [query, setQuery] = useState(''); // Состояние для текущего поискового запроса
 
   // Функция для поиска изображений
   const fetchImages = async (query, page = 1) => {
@@ -46,22 +47,23 @@ function App() {
     }
   };
 
-  // Обработчик события поиска
-  const handleSearch = (query) => {
-    if (!query.trim()) {
+  // Обработчик поиска
+  const handleSearch = (newQuery) => {
+    if (!newQuery.trim()) {
       toast.error('Введіть пошуковий запит!');
       return;
     }
+    setQuery(newQuery); // Сохраняем новый поисковый запрос
     setImages([]); // очищаем старые изображения
     setPage(1); // сбрасываем номер страницы
-    fetchImages(query, 1); // Загружаем первую порцию изображений
+    fetchImages(newQuery, 1); // Загружаем первую порцию изображений
   };
 
   // Обработчик загрузки следующей порции изображений
   const loadMore = () => {
     setPage((prevPage) => {
       const nextPage = prevPage + 1;
-      fetchImages('nature', nextPage); // Замените на нужный запрос
+      fetchImages(query, nextPage); // Используем сохраненный запрос
       return nextPage;
     });
   };
@@ -89,7 +91,7 @@ function App() {
           <>
             <ImageGallery images={images} onImageClick={openModal} />
             {isLoading && <Loader />} {/* Показываем Loader, пока идет загрузка */}
-            {images.length > 0 && !isLoading && ( // Кнопка отображается только если есть изображения и не идет загрузка
+            {images.length > 0 && !isLoading && (
               <LoadMoreBtn onClick={loadMore} />
             )}
           </>
@@ -103,5 +105,3 @@ function App() {
 }
 
 export default App;
-
-
